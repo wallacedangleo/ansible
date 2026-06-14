@@ -1,0 +1,28 @@
+---
+
+- hosts: all
+  become: true
+ 
+  tasks:
+  - name: install apache2 package
+    dnf:
+      name: httpd
+      state: present
+  
+  - name: update repo index
+    dnf:
+      name: "*"
+      state: latest
+  
+  - name: add php support for apache 
+    dnf:
+      name: 
+        - php
+        - php-cli
+      state: present
+   
+  - name: start apache
+    service:
+       name: httpd
+       state: started 
+       enabled: yes
